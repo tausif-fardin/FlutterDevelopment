@@ -1,19 +1,38 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+// ignore: must_be_immutable
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<StatefulWidget> createState() {
+    return MyAppState();
+  }
+}
+
+class MyAppState extends State<MyApp> {
+  // MyApp({Key? key}) : super(key: key);
+
+  var questionIndex = 0;
+
   void answerQuestion() {
-    // ignore: avoid_print
-    print('Answer Chosen!');
+    setState(() {
+      questionIndex = questionIndex + 1;
+    });
+    print(questionIndex);
   }
 
   @override //decorator
   Widget build(BuildContext context) {
+    var questions = [
+      'What\'s your favourite color?',
+      'What\'s your favourite food?',
+    ];
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -21,11 +40,13 @@ class MyApp extends StatelessWidget {
         ),
         body: Column(
           children: [
-            const Text('The question!'),
+            Text(questions[questionIndex]),
             ElevatedButton(
               onPressed: answerQuestion,
               child: const Text('Answer 1'),
             ),
+            Text(questions[1]),
+
             ElevatedButton(
               onPressed: () {
                 // ignore: avoid_print
